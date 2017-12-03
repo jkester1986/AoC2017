@@ -1,12 +1,7 @@
-let corner = 0;
-let count = 1;
 let goal = 312051;
-while(corner <= goal) {
-	corner = count*8 + corner;
-	count++;
-}
-
+let cornerRoot = Math.ceil(Math.sqrt(goal));
+let corner = Math.pow(cornerRoot, 2);
+let xval = Math.ceil(cornerRoot/2);
 let difference = corner - goal;
 
-let x = difference - count + 1;
-console.log(`Answer: ${x + count}`);
+console.log(`Answer 1: ${difference}`);
