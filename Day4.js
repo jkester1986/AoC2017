@@ -20,9 +20,8 @@ fs.readFile('Day4.txt', 'utf8', function(err, data) {
 
 			words.forEach(function(word) {
 				word = word.split('').sort().join('');
-				if (!set2.has(word)) {
-					set2.add(word);
-				}
+				
+				if (!set2.has(word)) set2.add(word);
 				else {
 					anagram = true;
 					return;
