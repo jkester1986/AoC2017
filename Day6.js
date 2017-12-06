@@ -1,5 +1,4 @@
 let banks = [4,10,4,1,8,4,9,14,5,1,14,15,0,15,3,5];
-//let banks = [0,2,7,0];
 let match = false;
 let bankOrderings = new Array();
 let steps = 0;
@@ -17,8 +16,6 @@ while (!match) {
     max--;
   }
   steps++;
-
-  //console.log(banks);
 
   if(bankOrderings.includes(banks.toString())) match = true;
   else bankOrderings.push(banks.toString());
