@@ -33,32 +33,58 @@ fs.readFile('Day7.txt', 'utf8', function(err, data) {
 		if(!leaves.has(currentBase)) {
 			base = currentBase;
 			console.log("Answer 1: " + base);
-			console.log(programs[`${base}`]);
 			return;
 		}
 	});
-
 
 	function getWeight(branch, weight) {
 
 		if(programs[`${branch}`].branches !== '') {
 			programs[`${branch}`].branches.forEach(function(newBranch) {
-				weight += programs[`${newBranch}`].weight;
-				return getWeight(newBranch, weight);
+				let newWeight = programs[`${newBranch}`].weight;
+				weight += getWeight(newBranch, newWeight);
 			});
+			return weight;
 		}
 		return weight;
 	}
 
+	let goal = 0;
+	let badProgram = ''
 	let weights = new Set();
+	let branchWeights = {};
+	let weightsArr = null;
+	let badIndex = null;
 
-	programs[`${base}`].branches.forEach(function(branch) {
-		weight = programs[`${branch}`].weight;
-		weights.add(getWeight(branch, weight));
-	});
+	function findBadProgram(badBranch) {
 
-	console.log(weights);
-	weights = Array.from(weights);
-	console.log("Answer 2: " + (weights[0]-weights[1]));
+		programs[`${badBranch}`].branches.forEach(function(branch) {
+			weight = programs[`${branch}`].weight;
+			let totalWeight = getWeight(branch, weight);
+			if(weights.has(totalWeight)) goal = totalWeight;
+			else weights.add(totalWeight);
+			branchWeights[totalWeight] = `${branch}`;
+		});
 
+		if (weights.size === 2) {
+
+			weightsArr = Array.from(weights);
+			goodIndex = weightsArr.indexOf(goal);
+			badIndex = (weightsArr.indexOf(goal)+1)%2;
+			badProgram = branchWeights[weightsArr[badIndex]];
+			goal = 0;
+			weights = new Set();
+			branchWeights = {};
+
+			findBadProgram(badProgram);
+		}
+	}
+
+	findBadProgram(`${base}`);
+
+	let badProgramWeight = programs[`${badProgram}`].weight;
+	let badWeight = weightsArr[badIndex];
+	let goodWeight = weightsArr[goodIndex];
+
+	console.log("Answer 2: " + (badProgramWeight + goodWeight - badWeight));
 });
