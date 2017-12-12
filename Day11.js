@@ -8,34 +8,47 @@ fs.readFile('Day11.txt', 'utf8', function(err, data) {
 	directions[length-1] = directions[length-1].split('\n')[0];
 
 	let coordinates = {
-		up:0,
-		diagonalEast:0,
-		diagonalWest:0
+		x:0,
+		y:0,
+		z:0
 	}
+
+	let furthest = 0;
+	let distance = 0;
 
 	for (var i = 0; i < length; i++) {
 		switch(directions[i]) {
 			case 'n':
-				coordinates.up++;
+				coordinates.y++;
+				coordinates.z--;
 				break;
 			case 's':
-				coordinates.up--;
+				coordinates.y--;
+				coordinates.z++;
 				break;
 			case 'ne':
-				coordinates.diagonalEast++;
+				coordinates.x++;
+				coordinates.z--;
 				break;
 			case 'se':
-				coordinates.diagonalEast--;
+				coordinates.x++;
+				coordinates.y--;
 				break;
 			case 'nw':
-				coordinates.diagonalWest++;
+				coordinates.y++;
+				coordinates.x--;
 				break;
 			case 'sw':
-				coordinates.diagonalWest--;
+				coordinates.z++;
+				coordinates.x--;
 			default:
 				break;
 		}
+		distance = (Math.abs(coordinates.x) + Math.abs(coordinates.y) + Math.abs(coordinates.z))/2;
+		if(distance > furthest) furthest = distance;
 	}
 
-	console.log(coordinates);
+	distance = (Math.abs(coordinates.x) + Math.abs(coordinates.y) + Math.abs(coordinates.z))/2;
+	console.log("Answer 1: " + distance);
+	console.log("Answer 2: " + furthest);
 });
