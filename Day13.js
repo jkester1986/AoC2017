@@ -6,21 +6,17 @@ fs.readFile('Day13.txt', 'utf8', function(err, data) {
 	data = data.trim();
 	lines = data.split('\n');
 
-	let layers = new Array(89);
+	let layers = new Array(7);
 
 	lines.forEach(function(line) {
 		let match = line.match(/^(\d+):\s(\d+)$/);
-		//console.log(match[1]);
 		let array = new Array(parseInt(match[2]));
-		//console.log(array);
 		array[0] = '.';
-		//console.log(array);
 		layers[match[1]] = {
 			direction: "forward",
 			arr: array.slice()
 		}
 	});
-
 
 	let severity = 0;
 
@@ -51,7 +47,22 @@ fs.readFile('Day13.txt', 'utf8', function(err, data) {
 		});
 	}
 
-	console.log(severity);
+	console.log("Answer 1: " + severity);
 
+	let safe = false;
+	let picoseconds = 2;
 
+	while(!safe) {
+		safe = true;
+		for(var i = 0; i < 89; i++) {
+			if(layers[i] && (picoseconds + i)%(layers[i].arr.length*2-2) === 0) {
+				safe = false;
+				break;
+			}
+		}
+		if (safe) {
+			console.log("Answer 2: " + picoseconds);
+		}
+		picoseconds += 2;
+	}
 });
