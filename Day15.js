@@ -1,5 +1,3 @@
-let converter = require('binary-machine');
-
 let multA = 16807;
 let multB = 48271;
 let divisor = 2147483647;
@@ -21,7 +19,6 @@ for (var i = 0; i < 40000000; i++) {
 }
 
 console.log("Answer 1: " + match);
-
 
 let count = 0;
 let foundA = false;
@@ -54,4 +51,4 @@ while(count < 5000000) {
   }
 }
 
-console.log(match2);
+console.log("Answer 2: " + match2);
