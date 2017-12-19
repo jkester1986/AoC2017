@@ -11,7 +11,9 @@ fs.readFile('Day18.txt', 'utf8', function(err, data) {
 	let deadlock = false;
 	let toggle = true;
 	let register1 = new Set();
+	register1['p'] = 0;
 	let register2 = new Set();
+	register2['p'] = 1;
 	let queue1 = [];
 	let queue2 = [];
 	let sound = null;
@@ -31,7 +33,7 @@ fs.readFile('Day18.txt', 'utf8', function(err, data) {
 				if (register2[`${match}`])
 					return register2[`${match}`];
 				else
-					return 1;
+					return 0;
 			}
 		}
 		else return matchInt;
@@ -85,11 +87,11 @@ fs.readFile('Day18.txt', 'utf8', function(err, data) {
 			case 'snd':
 				if(toggle) {
 					queue2.push(getVal(match[2]));
-					sent++;
 					index1++;
 				}
 				else {
 					queue1.push(getVal(match[2]));
+					sent++;
 					index2++;
 				}
 				break;
