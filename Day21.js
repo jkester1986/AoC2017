@@ -17,10 +17,7 @@ fs.readFile('Day21.txt', 'utf8', function(err, data) {
 		}
 		else threeByThree[`${match[1]}`] = match[2];
 		count++;
-	})
-
-	console.log(twoByTwo);
-	console.log(threeByThree);
+	});
 
 	for(var y = 0; y < grid.length; y++) {
 		let string = '';
@@ -28,6 +25,22 @@ fs.readFile('Day21.txt', 'utf8', function(err, data) {
 			string += grid[x][y];
 		}
 		console.log(string);
+	}
+
+	let count = 0;
+	while(count < 5) {
+		let divisor = grid.length%2 ? 2 : 3,
+			squares = grid.length/divisor,
+			square = 0;
+			count = 0;
+			string = ''
+		while(square < squares) {
+			for(var y = 0; y < divisor; y++) {
+				for(var x = 0;  x < divisor; x++);
+			}
+			count += divisor;
+			square++;
+		}
 	}
 
 });
