@@ -5,8 +5,8 @@ fs.readFile('Day21.txt', 'utf8', function(err, data) {
 	}
 	data = data.trim();
 	let lines = data.split('\n'),
-		directions = {},
-		grid = [['.','.','#'], ['#','.','#'], ['.','#','#']];
+		directions = { 2: {}, 3: {}},
+		grid = [['.','#','.'], ['.','.','#'], ['#','#','#']];
 
 	// put directions in a dictionary
 	lines.forEach(dir => {
@@ -14,16 +14,23 @@ fs.readFile('Day21.txt', 'utf8', function(err, data) {
 		let input = match[1],
 			output = match[2];
 
-		directions[`${input}`] = output;
+		if(input.match(/\//g)?.length === 2) {
+			directions[2][`${input}`] = output;
+		}
+		else {
+			directions[3][`${input}`] = output;
+		}
 	});
 
 	// iterate
 	let limit = 0;
-	while(limit < 0) {
+	while(limit > 0) {
 		if(grid.length % 2 === 0) {
 			//TODO:
 		}
 	}
+
+	console.log(directions);
 });
 
 
@@ -68,7 +75,7 @@ function rotate(input) {
 	return rows.join("/");
 }
 
-//keeping it simple, since our lenghth is only ever 2 or 3
+//keeping it simple, since our length is only ever 2 or 3
 function reverse(string) {
 	let chars = string.split("");
 	let lengthIndex = chars.length-1;
